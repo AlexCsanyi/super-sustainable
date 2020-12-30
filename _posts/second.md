@@ -1,5 +1,5 @@
 ---
-title: "Programming while exploring topics in sustainability"
+title: "This is how other stories will look like"
 excerpt: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Praesent elementum facilisis leo vel fringilla est ullamcorper eget. At imperdiet dui accumsan sit amet nulla facilities morbi tempus."
 coverImage: "/assets/blog/about/about_cover.jpg"
 date: "2020-12-27 17:32:27"
