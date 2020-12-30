@@ -17,14 +17,8 @@ module.exports = {
         medium: "0 8px 30px rgba(0, 0, 0, 0.12)",
       },
       colors: {
-        "accent-1": "#FAFAFA",
-        "accent-2": "#EAEAEA",
-        "accent-7": "#333",
-        success: "#0070f3",
-        cyan: "#79FFE1",
         accent: "var(--color-text-accent)",
-        primary: "var(--color-text-primary)",
-        secondary: "var(--color-text-secondary)",
+        inverse: "var(--color-bg-primary)"
       },
       spacing: {
         28: "7rem",
