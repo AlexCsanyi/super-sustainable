@@ -1,10 +1,14 @@
 import cn from 'classnames'
 import Link from 'next/link'
+import Image from 'next/image'
 
 export default function CoverImage({ title, src, slug }) {
   const image = (
-    <img
+    <Image
       src={src}
+      layout='responsive'
+      width="500"
+      height="220"
       alt={`Cover Image for ${title}`}
       className={cn('shadow-small', {
         'hover:shadow-medium transition-shadow duration-200': slug,
