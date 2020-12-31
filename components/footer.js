@@ -1,4 +1,5 @@
 import Container from "./container";
+import Link from 'next/link'
 
 export default function Footer() {
   return (
@@ -9,12 +10,11 @@ export default function Footer() {
             Super Sustainable
           </h3>
           <div className="flex flex-col lg:flex-row justify-center items-center lg:pl-4 lg:w-1/2">
-            <a
-              href="#"
-              className="mx-3 bg-accent hover:bg-primary hover:text-primary border border-accent text-inverse font-bold py-3 px-12 lg:px-8 duration-200 transition-colors mb-6 lg:mb-0"
-            >
-              Contact
-            </a>
+            <Link href="/contact">
+                <a className="mx-3 bg-accent hover:bg-primary hover:text-primary border border-accent text-inverse font-bold py-3 px-12 lg:px-8 duration-200 transition-colors mb-6 lg:mb-0">
+                    Contact
+                </a>
+            </Link>
             <a
               href="https://alexcsanyi.me/"
               className="text-secondary mx-3 font-bold hover:underline"
