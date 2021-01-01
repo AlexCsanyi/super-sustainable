@@ -1,7 +1,6 @@
 import Head from "next/head";
 import Container from "../components/container";
 import Layout from "../components/layout";
-import Header from "../components/header";
 
 export default function Contact() {
   return (
@@ -21,7 +20,7 @@ export default function Contact() {
                         </div>
                     </div>
                     <div className="mt-8">
-                        <Header />
+                        
                     </div>
                     </div>
                     <div className="">
@@ -33,7 +32,7 @@ export default function Contact() {
                     <div className="mt-8">
                         <span className="uppercase text-sm text-secondary font-bold">Email</span>
                         <input className="w-full bg-primary text-primary mt-2 p-3 rounded-lg focus:outline-none focus:shadow-outline"
-                        type="text" />
+                        type="email" />
                     </div>
                     <div className="mt-8">
                         <span className="uppercase text-sm text-secondary font-bold">Message</span>
