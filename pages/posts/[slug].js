@@ -8,72 +8,81 @@ import { getPostBySlug, getAllPosts } from "../../lib/api";
 import PostTitle from "../../components/post-title";
 import Head from "next/head";
 import markdownToHtml from "../../lib/markdownToHtml";
+import Prism from "prismjs"
+import { useEffect } from "react";
 
 export default function Post({ post, morePosts, preview }) {
-  const router = useRouter();
-  if (!router.isFallback && !post?.slug) {
-    return <ErrorPage statusCode={404} />;
-  }
-  return (
-    <Layout preview={preview}>
-      <Container>
-        {router.isFallback ? (
-          <PostTitle>Loading…</PostTitle>
-        ) : (
-          <>
-            <article className="mb-32">
-              <Head>
-                <title>{post.title} | Super Sustainable</title>
-                <meta property="og:image" content={post.ogImage.url} />
-              </Head>
-              <PostHeader
-                title={post.title}
-                coverImage={post.coverImage}
-                date={post.date}
-                author={post.author}
-              />
-              <PostBody content={post.content} />
-            </article>
-          </>
-        )}
-      </Container>
-    </Layout>
-  );
-}
+    const router = useRouter();
+    if (!router.isFallback && !post?.slug) {
+        return <ErrorPage statusCode={404} />;
+    }
 
-export async function getStaticProps({ params }) {
-  const post = getPostBySlug(params.slug, [
-    "title",
-    "date",
-    "slug",
-    "author",
-    "content",
-    "ogImage",
-    "coverImage",
-  ]);
-  const content = await markdownToHtml(post.content || "");
+    useEffect(() => {
+        if (typeof window !== 'undefined') {
+            Prism.highlightAll();
+        }
+    }, []);
 
-  return {
-    props: {
-      post: {
-        ...post,
-        content,
-      },
-    },
-  };
-}
+    return (
+        <Layout preview={preview}>
+            <Container>
+                {router.isFallback ? (
+                <PostTitle>Loading…</PostTitle>
+                ) : (
+                <>
+                    <article className="mb-32">
+                    <Head>
+                        <title>{post.title} | Take Notes</title>
+                        <meta property="og:image" content={post.ogImage.url} />
+                    </Head>
+                    <PostHeader
+                        title={post.title}
+                        coverImage={post.coverImage}
+                        date={post.date}
+                        author={post.author}
+                    />
+                    <PostBody content={post.content} />
+                    </article>
+                </>
+                )}
+            </Container>
+        </Layout>
+    );
+    }
 
-export async function getStaticPaths() {
-  const posts = getAllPosts(["slug"]);
+    export async function getStaticProps({ params }) {
+    const post = getPostBySlug(params.slug, [
+        "title",
+        "date",
+        "slug",
+        "author",
+        "content",
+        "ogImage",
+        "coverImage",
+    ]);
+    const content = await markdownToHtml(post.content || "");
 
-  return {
-    paths: posts.map((post) => {
-      return {
-        params: {
-          slug: post.slug,
+    return {
+        props: {
+        post: {
+            ...post,
+            content,
         },
-      };
-    }),
-    fallback: false,
-  };
+        },
+    };
+    }
+
+    export async function getStaticPaths() {
+    const posts = getAllPosts(["slug"]);
+
+    return {
+        paths: posts.map((post) => {
+        return {
+            params: {
+            slug: post.slug,
+            },
+        };
+        }),
+        fallback: false,
+    };
 }

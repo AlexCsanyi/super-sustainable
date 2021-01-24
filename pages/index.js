@@ -14,21 +14,21 @@ export default function Home({ allPosts }) {
         <>
             <Layout>
                 <Container>
-                <Head>
-                    <title>Super Sustainable</title>
-                </Head>
-                <Intro />
-                {heroPost && (
-                    <HeroPost
-                    title={heroPost.title}
-                    coverImage={heroPost.coverImage}
-                    date={heroPost.date}
-                    author={heroPost.author}
-                    slug={heroPost.slug}
-                    excerpt={heroPost.excerpt}
-                    />
-                )}
-                {morePosts.length > 0 && <MoreStories posts={morePosts} />}
+                    <Head>
+                        <title>Take Notes</title>
+                    </Head>
+                    <Intro />
+                    {heroPost && (
+                        <HeroPost
+                        title={heroPost.title}
+                        coverImage={heroPost.coverImage}
+                        date={heroPost.date}
+                        author={heroPost.author}
+                        slug={heroPost.slug}
+                        excerpt={heroPost.excerpt}
+                        />
+                    )}
+                    {morePosts.length > 0 && <MoreStories posts={morePosts} />}
                 </Container>
             </Layout>
         </>
