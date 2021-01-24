@@ -1,22 +1,23 @@
 import PostPreview from '../components/post-preview';
 import { useState } from "react";
 import Image from 'next/image';
-import {CheckCircle} from "react-feather"
+import {ChevronDown, ChevronUp } from "react-feather";
+import { Transition } from '@headlessui/react';
 
 export default function MoreStories({ posts }) {
     const [currentCategory, setCategory] = useState('all');
+    const [isOpen, setIsOpen]            = useState(false)
 
-    const categories = [];
-    posts.forEach(post => categories.push(post.category)
-);
+    let categories = [];
+    posts.forEach(post => categories.push(post.category));
 
     const getUniqueElementsFromArray = arr => {
         return [...new Set(arr)];
     };
 
-    const uniqueCategories = getUniqueElementsFromArray(categories)
+    let uniqueCategories = getUniqueElementsFromArray(categories)
 
-    const counts = {};
+    let counts = {};
     posts.forEach(post => {
         let category = post.category;
         counts[category] = counts[category] ? counts[category] + 1 : 1;
@@ -24,41 +25,47 @@ export default function MoreStories({ posts }) {
 
     return (
         <>
-            <section className="">
-                <h2 className="mb-8 text-primary text-6xl md:text-7xl font-bold tracking-tighter leading-tight">
-                    Categories
-                </h2>
-                <div className="grid grid-cols-1 md:grid-cols-3 md:gap-x-16 lg:gap-x-32 gap-y-20 md:gap-y-32 mb-32">
-                    {uniqueCategories && uniqueCategories.map((category, index) => (
-                        <div key={index}>
-                            <Image 
-                                src="/assets/category/category.webp"  
-                                layout='responsive'
-                                width="510"
-                                height="510" 
-                                alt="Programming" 
-                                className="w-full object-cover object-center rounded-lg shadow-lg" 
-                            />    
-                            <div className="relative px-4 -mt-16">
-                                <div className="bg-secondary p-6 rounded-lg cursor-pointer shadow-lg transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110" onClick={() => setCategory(currentCategory === category ? 'all' : category)}>
-                                    <h4 className={`mt-1 text-xl ${currentCategory === category ? "text-accent" : "text-primary"} font-semibold uppercase leading-tight truncate`}>
-                                        {category}
-                                    </h4>
-                                    <div className="mt-4">
-                                        <span className="text-secondary text-md font-semibold">#{counts[category]} </span>
-                                        <span className="text-sm text-secondary">(number of articles)</span>
-                                    </div> 
-                                    {currentCategory === category ? <div className="text-accent absolute top-8 right-7"><CheckCircle /></div> : ''}
+            <section>
+                <div className="flex justify-between align-middle">
+                    <h2 className="mb-8 text-primary text-6xl md:text-7xl font-bold tracking-tighter leading-tight">
+                        More Stories
+                    </h2>
+
+                    
+                    <div className="relative inline-block text-left mt-8">
+                        <div>
+                            <button onClick={() => setIsOpen(!isOpen)} type="button" className="inline-flex justify-center w-56 rounded-md border border-accent shadow-sm px-4 py-2 bg-primary text-sm font-medium text-primary hover:bg-secondary focus:outline-none" id="categories-menu" aria-haspopup="true" aria-expanded="true">
+                                Categories {isOpen ? <ChevronUp /> : <ChevronDown />}
+                            </button>
+                        </div>
+                        <Transition
+                            show={isOpen}
+                            enter="transition ease-out duration-100 transform"
+                            enterFrom="opacity-0 scale-95"
+                            enterTo="opacity-100 scale-100"
+                            leave="transition ease-in duration-75 transform"
+                            leaveFrom="opacity-100 scale-100"
+                            leaveTo="opacity-0 scale-95"
+                        >   
+                            {(ref) => (
+                            <div ref={ref} className="z-10 origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-secondary ring-1 ring-black ring-opacity-5">
+                                <div className="py-1" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
+                                    <ul className=" list-none m-0 p-0 ">
+                                        <li className={`block cursor-pointer px-4 py-2 text-sm ${currentCategory === 'all' ? "text-accent" : "text-primary"} hover:bg-negative hover:text-inverse`} onClick={() => setCategory('all')} role="menuitem">
+                                            #{posts.length} - All
+                                        </li>
+                                    {uniqueCategories && uniqueCategories.map((category, index) => (
+                                        <li key={index} className={`block cursor-pointer px-4 py-2 text-sm ${currentCategory === category ? "text-accent" : "text-primary"} hover:bg-negative hover:text-inverse`} onClick={() => setCategory(currentCategory === category ? 'all' : category)} role="menuitem">
+                                            #{counts[category]} - {category}
+                                        </li>
+                                    ))}
+                                    </ul>
                                 </div>
                             </div>
-                        </div> 
-                    ))}
+                            )}
+                        </Transition>
+                    </div>
                 </div>
-            </section>
-            <section>
-                <h2 className="mb-8 text-primary text-6xl md:text-7xl font-bold tracking-tighter leading-tight">
-                    More Stories
-                </h2>
                 <div className="grid grid-cols-1 md:grid-cols-2 md:gap-x-16 lg:gap-x-32 gap-y-20 md:gap-y-32 mb-32">
                     {posts.map((post) => (
                     currentCategory === post.category || currentCategory === 'all' ? 
