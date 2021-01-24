@@ -5,7 +5,7 @@ export default function Intro() {
         Blog.
       </h1>
       <h4 className="text-center text-secondary md:text-left text-lg mt-5 md:pl-8">
-        A programming blog - focusing on topics around sustainability.
+        Just another developer blog.
       </h4>
     </section>
   );
