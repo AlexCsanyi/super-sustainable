@@ -20,8 +20,8 @@ export default function Nav() {
   };
 
   return (
-    <div className={`flex ${router.pathname !== '/' ? 'justify-between' : 'justify-end'} h-10 items-center`}>
-        {router.pathname !== '/' ? <Header /> : ''}
+    <div className='flex justify-between h-10 items-center'>
+        <Header />
         <div className="flex items-center">
             <a target="_blank" rel="noopener noreferrer" href="https://twitter.com/AlexCsanyi" className="text-primary pr-2 font-bold leading-8 cursor-pointer hover:text-accent">Twitter<span className="text-accent font-extrabold">.</span></a>
             <a target="_blank" rel="noopener noreferrer" href="https://github.com/AlexCsanyi" className="text-primary pr-2 font-bold leading-8 cursor-pointer hover:text-accent">GitHub<span className="text-accent font-extrabold">.</span></a>
